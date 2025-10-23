@@ -250,6 +250,89 @@
             }
         }
 
+        /* Updated nav to center logo and position toggle absolutely */
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: var(--bg-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            position: relative;
+        }
+
+        /* Added mobile responsive nav styling */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+        }
+
+        .nav-logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            /* Updated to accommodate image logo */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-logo img {
+            height: 40px;
+            width: auto;
+            border-radius: 0;
+            margin: 0;
+            transition: filter 0.3s ease;
+        }
+
+        /* Updated mobile responsive logo sizing */
+        @media (max-width: 768px) {
+            .nav-logo img {
+                height: 32px;
+            }
+        }
+
+        /* Position toggle button absolutely on the right side of nav */
+        .theme-toggle {
+            position: absolute;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 10px 20px;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: 2px solid var(--button-border);
+            border-radius: 4px;
+            font-family: 'Helvetica', sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            opacity: 0.8;
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        /* Made button much more compact on mobile to prevent overlap with logo */
+        @media (max-width: 768px) {
+            .theme-toggle {
+                right: 15px;
+                padding: 6px 10px;
+                font-size: 11px;
+                border-radius: 3px;
+                border-width: 1px;
+            }
+
+            .theme-toggle:hover {
+                transform: translateY(-50%) scale(1.02);
+            }
+        }
+
+
     </style>
 </head>
 <body>
