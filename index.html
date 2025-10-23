@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Page</title>
+    <style>
+        @font-face {
+            font-family: 'Louize';
+            src: url('./fonts/MarlinSoft.otf') format('opentype');
+            font-weight: bold;
+        }
+
+        @font-face {
+            font-family: 'Helvetica';
+            src: url('./fonts/HelveticaNeueBold.otf') format('opentype');
+            font-weight: bold;
+        }
+
+        /* Added theme CSS variables for dark and light modes */
+        :root {
+            --bg-color: #000;
+            --text-color: #fff;
+            --button-bg: #fff;
+            --button-text: #000;
+            --button-border: #000;
+            --footer-bg: #232323;
+            --footer-text: #fff;
+            
+            --letter-spacing-heading: 0px;
+            --word-spacing-heading: 0px;
+            --letter-spacing-body: -0.2px;
+            --word-spacing-body: -1.1px;
+        }
+
+        /* Light mode theme */
+        body.light-mode {
+            --bg-color: #fff;
+            --text-color: #000;
+            --button-bg: #000;
+            --button-text: #fff;
+            --button-border: #000;
+            --footer-bg: #ECECEC;
+            --footer-text: #000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Helvetica', sans-serif;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Added smooth scroll behavior to html element */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Updated nav to center logo and position toggle absolutely */
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: var(--bg-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            /* Updated to accommodate image logo */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-logo img {
+            height: 40px;
+            width: auto;
+            border-radius: 0;
+            margin: 0;
+            transition: filter 0.3s ease;
+        }
+
+        /* Position toggle button absolutely on the right side of nav */
+        .theme-toggle {
+            position: absolute;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 10px 20px;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: 2px solid var(--button-border);
+            border-radius: 4px;
+            font-family: 'Helvetica', sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            opacity: 0.8;
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 60px;
+            letter-spacing: 2px;
+            display: none;
+        }
+
+        .article-header {
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-family: 'Louize', serif;
+            font-size: 56px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            font-weight: bold;
+            letter-spacing: var(--letter-spacing-heading);
+            word-spacing: var(--word-spacing-heading);
+        }
+
+        .byline {
+            font-size: 14px;
+            font-family: 'Helvetica', sans-serif;
+            margin-bottom: 40px;
+            letter-spacing: var(--letter-spacing-body);
+            word-spacing: var(--word-spacing-body);
+        }
+
+        .article-content {
+            text-align: justify;
+        }
+
+        p {
+            font-family: 'Helvetica', sans-serif;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            letter-spacing: var(--letter-spacing-body);
+            word-spacing: var(--word-spacing-body);
+        }
+
+        img {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            margin: 40px 0;
+            display: block;
+            border-radius: 8px;
+            /* Added transition for smooth blur effect */
+            transition: filter 0.1s ease-out;
+        }
+
+        /* Added footer styling */
+        footer {
+            background-color: var(--bg-color);
+            padding: 60px 40px;
+            margin-top: 80px;
+            transition: background-color 0.3s ease;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 40px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .footer-columns {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+            text-align: left;
+        }
+
+        .footer-column h3 {
+            font-family: 'Helvetica', sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            color: var(--footer-text);
+        }
+
+        /* Added blue hover effect to footer links */
+        .footer-column h3:hover {
+            color: #007BFF;
+        }
+
+        /* Hide footer descriptions */
+        .footer-column p {
+            display: none;
+        }
+
+        .footer-logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-logo-container img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            margin: 0;
+            border-radius: 0;
+            /* Exclude footer logo from blur effect */
+            filter: none !important;
+        }
+
+        /* Added mobile responsive footer layout */
+        @media (max-width: 768px) {
+            .footer-columns {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-logo">
+            <img id="themeLogo" src="/logo-dark.svg" alt="Logo">
+        </div>
+        <button class="theme-toggle" id="themeToggle">Light Mode</button>
+    </nav>
+
+    <div class="container">
+        <article>
+            <div class="article-header">
+                <h1>Why The World Needs MORE Nuclear Energy</h1>
+                <div class="byline">By Bloho  Fact Checked by: Prof "Anonymous"</div>
+            </div>
+
+            <div class="article-content">
+                <p>
+                    Nuclear power is the use of nuclear reactions to produce electricity. Nuclear power can be obtained from nuclear fission, nuclear decay and nuclear fusion reactions. Presently, the vast majority of electricity from nuclear power is produced by nuclear fission of uranium and plutonium in nuclear power plants. Nuclear decay processes are used in niche applications such as radioisotope thermoelectric generators in some space probes such as Voyager 2.[1] Reactors producing controlled fusion power have been operated since 1958 but yet to generate net power and are not expected to be commercially available in the near future.[2]
+                </p>
+
+                <img src="C:\Users\ayush\Downloads\videoframe_12029.png" alt="Article image">
+
+                <p>
+                    The first nuclear power plant was built in the 1950s. The global installed nuclear capacity grew to 100 GW in the late 1970s, and then expanded during the 1980s, reaching 300 GW by 1990. The 1979 Three Mile Island accident in the United States and the 1986 Chernobyl disaster in the Soviet Union resulted in increased regulation and public opposition to nuclear power plants. Nuclear power plants supplied 2,602 terawatt hours (TWh) of electricity in 2023, equivalent to about 9% of global electricity generation,[3] and were the second largest low-carbon power source after hydroelectricity.
+                </p>
+            </div>
+        </article>
+    </div>
+
+    <!-- Added footer section with three columns and large logo -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-columns">
+                <div class="footer-column">
+                    <h3>About Us</h3>
+                    <p>Learn more about our mission and values.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p>Get in touch with our team for inquiries.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Additional Information</h3>
+                    <p>Explore more resources and documentation.</p>
+                </div>
+            </div>
+            <div class="footer-logo-container">
+                <img id="footerLogo" src="/logo-dark.svg" alt="Footer Logo" class="no-blur">
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const themeLogo = document.getElementById('themeLogo');
+        const footerLogo = document.getElementById('footerLogo');
+
+        // Check for saved theme preference or default to dark mode
+        const currentTheme = localStorage.getItem('theme') || 'dark-mode';
+        body.classList.add(currentTheme);
+        updateButtonText();
+        updateLogo();
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            
+            const theme = body.classList.contains('light-mode') ? 'light-mode' : 'dark-mode';
+            localStorage.setItem('theme', theme);
+            updateButtonText();
+            updateLogo();
+        });
+
+        function updateButtonText() {
+            themeToggle.textContent = body.classList.contains('light-mode') ? 'Dark Mode' : 'Light Mode';
+        }
+
+        function updateLogo() {
+            const isLightMode = body.classList.contains('light-mode');
+            themeLogo.src = isLightMode ? 'logo/logo-light.svg' : 'logo/logo-dark.svg';
+            footerLogo.src = isLightMode ? 'logo/logo-light.svg' : 'logo/logo-dark.svg';
+        }
+
+        function applyScrollBlur() {
+            const elements = document.querySelectorAll('p:not(.no-blur), img:not(.no-blur), h1:not(.no-blur), .byline:not(.no-blur)');
+            const viewportHeight = window.innerHeight;
+            
+            elements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const elementCenter = rect.top + rect.height / 2;
+                
+                // Calculate distance from bottom of viewport (0 = at bottom, viewportHeight = at top)
+                const distanceFromBottom = viewportHeight - rect.top;
+                
+                // Calculate blur amount (max 10px blur)
+                let blurAmount = 0;
+                if (distanceFromBottom < 0) {
+                    blurAmount = 10; // Fully blurred if below viewport
+                } else if (distanceFromBottom < viewportHeight * 0.3) {
+                    // Blur more as element approaches bottom
+                    blurAmount = 10 * (1 - (distanceFromBottom / (viewportHeight * 0.3)));
+                }
+                
+                element.style.filter = `blur(${blurAmount}px)`;
+            });
+        }
+
+        // Apply blur on scroll
+        window.addEventListener('scroll', applyScrollBlur);
+        
+        // Initial call
+        applyScrollBlur();
+    </script>
+</body>
+</html>
