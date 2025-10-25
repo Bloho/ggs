@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,6 +49,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -71,7 +73,12 @@
             padding: 20px 40px;
             background-color: var(--bg-color);
             transition: background-color 0.3s ease, border-color 0.3s ease;
-            position: relative;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 1001;
         }
 
         .nav-logo {
@@ -121,6 +128,7 @@
             margin: 0 auto;
             padding: 60px 20px;
             text-align: center;
+            margin-top: 80px;
         }
 
         .logo {
@@ -250,21 +258,14 @@
             }
         }
 
-        /* Updated nav to center logo and position toggle absolutely */
-        nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px 40px;
-            background-color: var(--bg-color);
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-            position: relative;
-        }
-
         /* Added mobile responsive nav styling */
         @media (max-width: 768px) {
             nav {
                 padding: 15px 20px;
+            }
+
+            .container {
+                margin-top: 70px;
             }
         }
 
